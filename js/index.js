@@ -2,7 +2,7 @@ let names = [];
 
 const fetch = (name) => {
   return new Promise((resolve, reject) =>
-    wtf.fetch(name, 'en', function(err, doc) {
+    wtf.fetch(name, 'en', (err, doc) => {
       const infobox = doc.infobox(0);
       if(infobox) {
         const influences = infobox.get('influences');
@@ -15,7 +15,6 @@ const fetch = (name) => {
   );
 }
 
-const delay = (time) => new Promise((resolve) => setTimeout(resolve, delay));
 
 const print = (name, data, action) => {
   const { influences, influenced, img } = data;
@@ -37,7 +36,6 @@ const getInfluences = (inf) => {
         .then((data) => {
           if(!names.includes(link.page)) {
             names.push(link.page);
-            console.log(link.page)
             print(link.page, data, 'append')
             getInfluences(data.influences);
           }
